@@ -1,0 +1,32 @@
+# Tier 3 — open weights on hardware you control.
+#
+# Bound to 127.0.0.1 on purpose: the serving port must not be reachable from
+# outside the host. Put your own ingress and authentication in front of it.
+
+services:
+  inference:
+    image: vllm/vllm-openai:latest
+    command:
+      - --model=${MODEL_PATH:-/models/instruct}
+      - --served-model-name=open-weights/instruct
+      - --max-model-len=8192
+      - --gpu-memory-utilization=0.90
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ${MODEL_DIR:-./models}:/models:ro
+    environment:
+      - HF_HUB_OFFLINE=1        # no model downloads at runtime; weights are versioned by you
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5

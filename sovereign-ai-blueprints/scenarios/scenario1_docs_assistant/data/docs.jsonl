@@ -1,0 +1,5 @@
+{"id": "DOC-001", "title": "Rotating API keys", "text": "Rotate an API key from Settings, API access. Generate the new key, deploy it, then revoke the old key. Keys are never shown twice.", "acl_roles": []}
+{"id": "DOC-002", "title": "Report exports and retention", "text": "Exported reports are retained for 30 days in the export bucket, after which they are deleted automatically. Retention is configurable on enterprise plans.", "acl_roles": []}
+{"id": "DOC-003", "title": "Single sign-on", "text": "The platform supports SSO through SAML 2.0 and OIDC. SCIM provisioning is available on enterprise plans. SSO is configured per workspace.", "acl_roles": []}
+{"id": "DOC-004", "title": "Rate limits", "text": "The default rate limit is 600 requests per minute per workspace. Bursts above the limit return HTTP 429 with a retry-after header.", "acl_roles": []}
+{"id": "DOC-005", "title": "Webhook delivery", "text": "Webhooks retry with exponential backoff for up to 24 hours. Delivery logs are available in the developer console for 7 days.", "acl_roles": []}
